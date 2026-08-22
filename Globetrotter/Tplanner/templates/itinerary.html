@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +23,7 @@
 
 <header class="navbar">
 
+
     <a href="{% url 'index' %}"
        class="logo">
 
@@ -30,28 +32,44 @@
     </a>
 
 
+
     <nav>
 
+
         <a href="{% url 'dashboard' %}">
+
             Dashboard
+
         </a>
+
+
 
         <a href="{% url 'destinations' %}">
+
             Destinations
+
         </a>
+
+
 
         <a href="{% url 'create_trip' %}">
+
             Plan Trip
+
         </a>
 
-        <a href="{% url 'itinerary' %}"
+
+
+        <a href="{% url 'dashboard' %}"
            class="active">
 
             My Trips
 
         </a>
 
+
     </nav>
+
 
 
     <a href="{% url 'profile' %}"
@@ -61,36 +79,64 @@
 
     </a>
 
+
 </header>
+
+
 
 
 <main class="page">
 
 
+
+<!-- ========================= -->
+<!-- TRIP HEADER -->
+<!-- ========================= -->
+
+
 <div class="trip-header">
+
 
     <div>
 
+
         <span class="eyebrow">
+
             UPCOMING TRIP
+
         </span>
 
+
+
         <h1>
-            🌴 Bali Escape
+
+            🌴 {{ trip.trip_name }}
+
         </h1>
 
+
+
         <p>
-            12 Oct – 18 Oct 2026
+
+            {{ trip.start_date }}
+
+            &nbsp; – &nbsp;
+
+            {{ trip.end_date }}
+
             &nbsp; • &nbsp;
-            2 travelers
-            &nbsp; • &nbsp;
-            7 days
+
+            {{ trip.travelers }} travelers
+
         </p>
+
 
     </div>
 
 
+
     <div>
+
 
         <a href="{% url 'create_trip' %}"
            class="btn btn-light">
@@ -99,355 +145,699 @@
 
         </a>
 
-        <a href="{% url 'budget' %}"
+
+
+        <a href="{% url 'budget' trip.id %}"
            class="btn btn-primary">
 
             View Budget
 
         </a>
 
+
     </div>
+
 
 </div>
 
 
-<div class="itinerary-layout">
 
 
-<section>
+
+<!-- ========================= -->
+<!-- ADD ITINERARY ACTIVITY -->
+<!-- ========================= -->
 
 
-<div class="day active-day">
-
-    <div class="day-title">
-
-        <span>
-            DAY 1
-        </span>
-
-        <h2>
-            Arrival & Seminyak
-        </h2>
-
-        <small>
-            Monday, 12 October
-        </small>
-
-    </div>
+<section class="planner-card">
 
 
-    <div class="timeline">
+    <h2>
+
+        Add activity
+
+    </h2>
 
 
-        <div class="event">
 
-            <time>
-                10:00 AM
-            </time>
+    <form
+        method="POST"
+        action="{% url 'itinerary' trip.id %}"
+    >
+
+
+        {% csrf_token %}
+
+
+
+        <!-- DATE + TIME -->
+
+
+        <div class="two-inputs">
+
 
             <div>
 
-                <b>
-                    Arrive at Ngurah Rai Airport
-                </b>
 
-                <p>
-                    Airport pickup → Hotel check-in
-                </p>
+                <label>
 
-                <span>
-                    🚗 Transport
-                </span>
+                    Date
+
+                </label>
+
+
+
+                <input
+                    type="date"
+                    name="date"
+                    required
+                >
+
 
             </div>
+
+
+
+            <div>
+
+
+                <label>
+
+                    Time
+
+                </label>
+
+
+
+                <input
+                    type="time"
+                    name="time"
+                >
+
+
+            </div>
+
 
         </div>
 
 
-        <div class="event">
 
-            <time>
-                01:00 PM
-            </time>
+
+
+        <!-- ACTIVITY + CATEGORY -->
+
+
+        <div class="two-inputs">
+
 
             <div>
 
-                <b>
-                    Lunch at Seminyak
-                </b>
 
-                <p>
-                    Try local Balinese cuisine
-                </p>
+                <label>
 
-                <span>
-                    🍜 Food
-                </span>
+                    Activity
+
+                </label>
+
+
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Visit Ubud Monkey Forest"
+                    required
+                >
+
 
             </div>
+
+
+
+            <div>
+
+
+                <label>
+
+                    Category
+
+                </label>
+
+
+
+                <select
+                    name="category"
+                    required
+                >
+
+
+                    <option value="">
+
+                        Select category
+
+                    </option>
+
+
+
+                    <option value="Transport">
+
+                        🚗 Transport
+
+                    </option>
+
+
+
+                    <option value="Food">
+
+                        🍜 Food
+
+                    </option>
+
+
+
+                    <option value="Activity">
+
+                        🏖️ Activity
+
+                    </option>
+
+
+
+                    <option value="Accommodation">
+
+                        🏨 Accommodation
+
+                    </option>
+
+
+
+                    <option value="Shopping">
+
+                        🛍️ Shopping
+
+                    </option>
+
+
+
+                    <option value="Other">
+
+                        📌 Other
+
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
 
         </div>
 
 
-        <div class="event">
 
-            <time>
-                04:00 PM
-            </time>
+
+
+        <!-- COST + DESCRIPTION -->
+
+
+        <div class="two-inputs">
+
 
             <div>
 
-                <b>
-                    Explore Seminyak Beach
-                </b>
 
-                <p>
-                    Relax, walk around and enjoy sunset
-                </p>
+                <label>
 
-                <span>
-                    🏖️ Activity
-                </span>
+                    Estimated cost (₹)
+
+                </label>
+
+
+
+                <input
+                    type="number"
+                    name="estimated_cost"
+                    placeholder="Estimated cost"
+                    min="0"
+                    value="0"
+                >
+
 
             </div>
+
+
+
+            <div>
+
+
+                <label>
+
+                    Description
+
+                </label>
+
+
+
+                <textarea
+                    name="description"
+                    placeholder="Add some details..."
+                    rows="2"
+                ></textarea>
+
+
+            </div>
+
 
         </div>
 
 
-        <div class="event">
-
-            <time>
-                07:30 PM
-            </time>
-
-            <div>
-
-                <b>
-                    Sunset dinner
-                </b>
-
-                <p>
-                    Beachfront restaurant reservation
-                </p>
-
-                <span>
-                    🍽️ Food
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
 
 
-<div class="day">
 
-    <div class="day-title">
-
-        <span>
-            DAY 2
-        </span>
-
-        <h2>
-            Ubud Adventure
-        </h2>
-
-        <small>
-            Tuesday, 13 October
-        </small>
-
-    </div>
+        <!-- SUBMIT BUTTON -->
 
 
-    <div class="timeline">
+        <div class="form-actions">
 
 
-        <div class="event">
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
 
-            <time>
-                08:00 AM
-            </time>
+                + Add Activity
 
-            <div>
+            </button>
 
-                <b>
-                    Breakfast & hotel pickup
-                </b>
-
-                <p>
-                    Start the Ubud day tour
-                </p>
-
-            </div>
 
         </div>
 
 
-        <div class="event">
-
-            <time>
-                10:00 AM
-            </time>
-
-            <div>
-
-                <b>
-                    Tegallalang Rice Terrace
-                </b>
-
-                <p>
-                    Nature walk and photography
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="event">
-
-            <time>
-                02:00 PM
-            </time>
-
-            <div>
-
-                <b>
-                    Ubud Monkey Forest
-                </b>
-
-                <p>
-                    Explore the famous sanctuary
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="day">
-
-    <div class="day-title">
-
-        <span>
-            DAY 3
-        </span>
-
-        <h2>
-            Nusa Penida
-        </h2>
-
-        <small>
-            Wednesday, 14 October
-        </small>
-
-    </div>
-
-</div>
+    </form>
 
 
 </section>
 
 
+
+
+
+<!-- ========================= -->
+<!-- ITINERARY + SUMMARY -->
+<!-- ========================= -->
+
+
+<div class="itinerary-layout">
+
+
+
+<section>
+
+
+
+
+    {% regroup items by date as days %}
+
+
+
+    {% for day in days %}
+
+
+
+    <div class="day {% if forloop.first %}active-day{% endif %}">
+
+
+
+        <div class="day-title">
+
+
+            <span>
+
+                DAY {{ forloop.counter }}
+
+            </span>
+
+
+
+            <h2>
+
+                {{ day.grouper }}
+
+            </h2>
+
+
+
+            <small>
+
+                {{ day.grouper|date:"l, d F Y" }}
+
+            </small>
+
+
+        </div>
+
+
+
+
+
+        <div class="timeline">
+
+
+
+            {% for item in day.list %}
+
+
+
+            <div class="event">
+
+
+
+                <time>
+
+
+                    {% if item.time %}
+
+                        {{ item.time|time:"h:i A" }}
+
+                    {% else %}
+
+                        Anytime
+
+                    {% endif %}
+
+
+                </time>
+
+
+
+                <div>
+
+
+                    <b>
+
+                        {{ item.title }}
+
+                    </b>
+
+
+
+                    {% if item.description %}
+
+
+                    <p>
+
+                        {{ item.description }}
+
+                    </p>
+
+
+                    {% endif %}
+
+
+
+                    {% if item.category %}
+
+
+                    <span>
+
+                        📌 {{ item.category }}
+
+                    </span>
+
+
+                    {% endif %}
+
+
+
+                    {% if item.estimated_cost %}
+
+
+                    <p>
+
+                        💰 ₹{{ item.estimated_cost }}
+
+                    </p>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    </div>
+
+
+
+    {% empty %}
+
+
+
+    <div class="planner-card">
+
+
+        <h2>
+
+            Your itinerary is empty
+
+        </h2>
+
+
+
+        <p>
+
+            Add your first activity using the form above.
+
+        </p>
+
+
+    </div>
+
+
+
+    {% endfor %}
+
+
+
+</section>
+
+
+
+
+
+<!-- ========================= -->
+<!-- TRIP SUMMARY -->
+<!-- ========================= -->
+
+
 <aside class="side-panel">
 
+
     <h3>
+
         Trip summary
+
     </h3>
 
 
+
+
+
     <div class="summary-row">
 
+
         <span>
+
             📍 Destination
+
         </span>
 
+
+
         <b>
-            Bali, Indonesia
+
+            {{ trip.destination.name }},
+
+            {{ trip.destination.country }}
+
         </b>
+
 
     </div>
 
 
+
+
+
     <div class="summary-row">
 
+
         <span>
-            🗓️ Duration
+
+            🗓️ Start
+
         </span>
 
+
+
         <b>
-            7 days
+
+            {{ trip.start_date }}
+
         </b>
+
 
     </div>
 
 
+
+
+
     <div class="summary-row">
 
+
         <span>
+
+            🗓️ End
+
+        </span>
+
+
+
+        <b>
+
+            {{ trip.end_date }}
+
+        </b>
+
+
+    </div>
+
+
+
+
+
+    <div class="summary-row">
+
+
+        <span>
+
             👥 Travelers
+
         </span>
 
+
+
         <b>
-            2 people
+
+            {{ trip.travelers }} people
+
         </b>
 
+
     </div>
+
+
+
 
 
     <div class="summary-row">
 
+
         <span>
+
             💰 Budget
+
         </span>
 
+
+
         <b>
-            ₹48,000
+
+            ₹{{ trip.budget }}
+
         </b>
 
+
     </div>
+
+
+
 
 
     <hr>
 
 
+
+
+
     <h3>
+
         Planning progress
+
     </h3>
+
+
+
 
 
     <div class="progress big">
 
-        <span style="width:72%"></span>
+
+        <span
+            style="width:72%"
+        ></span>
+
 
     </div>
 
 
+
+
+
     <p class="muted">
-        72% complete
+
+
+        {{ items|length }} activities added
+
+
     </p>
 
 
-    <a href="{% url 'budget' %}"
-       class="btn btn-primary full">
+
+
+
+    <a
+        href="{% url 'budget' trip.id %}"
+        class="btn btn-primary full"
+    >
 
         Manage trip budget
 
     </a>
 
+
 </aside>
+
 
 
 </div>
 
+
+
 </main>
+
+
 
 </body>
 

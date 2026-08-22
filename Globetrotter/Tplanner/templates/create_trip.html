@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +48,7 @@
 
         </a>
 
-        <a href="{% url 'itinerary' %}">
+        <a href="{% url 'dashboard' %}">
             My Trips
         </a>
 
@@ -62,6 +63,7 @@
     </a>
 
 </header>
+
 
 
 <main class="page narrow">
@@ -83,6 +85,7 @@
     </p>
 
 </div>
+
 
 
 <div class="stepper">
@@ -128,8 +131,16 @@
 </div>
 
 
+
+<!-- ========================= -->
+<!-- CREATE TRIP FORM -->
+<!-- ========================= -->
+
 <form class="planner-card"
-      action="{% url 'itinerary' %}">
+      method="POST"
+      action="{% url 'create_trip' %}">
+
+    {% csrf_token %}
 
 
     <h2>
@@ -137,7 +148,11 @@
     </h2>
 
 
+
+    <!-- DESTINATION + TRIP NAME -->
+
     <div class="two-inputs">
+
 
         <div>
 
@@ -145,39 +160,36 @@
                 Destination
             </label>
 
-            <select required>
+
+            <select
+                name="destination"
+                required>
 
                 <option value="">
                     Select destination
                 </option>
 
-                <option>
-                    Paris, France
-                </option>
 
-                <option>
-                    Dubai, UAE
-                </option>
+                {% for destination in destinations %}
 
-                <option>
-                    Bali, Indonesia
-                </option>
+                    <option
+                        value="{{ destination.id }}"
+                        {% if request.GET.destination == destination.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
 
-                <option>
-                    Tokyo, Japan
-                </option>
+                        {{ destination.name }},
+                        {{ destination.country }}
 
-                <option>
-                    London, UK
-                </option>
+                    </option>
 
-                <option>
-                    Goa, India
-                </option>
+                {% endfor %}
 
             </select>
 
         </div>
+
 
 
         <div>
@@ -186,17 +198,23 @@
                 Trip name
             </label>
 
+
             <input
                 type="text"
+                name="trip_name"
                 placeholder="My dream vacation"
-            >
+                required>
 
         </div>
 
     </div>
 
 
+
+    <!-- DATES -->
+
     <div class="two-inputs">
+
 
         <div>
 
@@ -204,12 +222,14 @@
                 Start date
             </label>
 
+
             <input
                 type="date"
-                required
-            >
+                name="start_date"
+                required>
 
         </div>
+
 
 
         <div>
@@ -218,17 +238,22 @@
                 End date
             </label>
 
+
             <input
                 type="date"
-                required
-            >
+                name="end_date"
+                required>
 
         </div>
 
     </div>
 
 
+
+    <!-- TRAVELERS + BUDGET -->
+
     <div class="two-inputs">
+
 
         <div>
 
@@ -236,13 +261,16 @@
                 Number of travelers
             </label>
 
+
             <input
                 type="number"
+                name="travelers"
                 min="1"
                 value="2"
-            >
+                required>
 
         </div>
+
 
 
         <div>
@@ -251,15 +279,21 @@
                 Budget (₹)
             </label>
 
+
             <input
                 type="number"
+                name="budget"
+                min="0"
                 placeholder="50000"
-            >
+                required>
 
         </div>
 
     </div>
 
+
+
+    <!-- TRAVEL STYLE -->
 
     <label>
         Travel style
@@ -268,37 +302,40 @@
 
     <div class="choice-grid">
 
+
         <label class="choice">
 
             <input
                 type="radio"
-                name="style"
-                checked
-            >
+                name="travel_style"
+                value="budget">
 
             🧳 Budget
 
         </label>
 
 
+
         <label class="choice">
 
             <input
                 type="radio"
-                name="style"
-            >
+                name="travel_style"
+                value="moderate"
+                checked>
 
             ⭐ Moderate
 
         </label>
 
 
+
         <label class="choice">
 
             <input
                 type="radio"
-                name="style"
-            >
+                name="travel_style"
+                value="luxury">
 
             💎 Luxury
 
@@ -307,6 +344,9 @@
     </div>
 
 
+
+    <!-- INTERESTS -->
+
     <label>
         Interests
     </label>
@@ -314,50 +354,106 @@
 
     <div class="choice-grid">
 
+
         <label class="choice">
-            <input type="checkbox">
+
+            <input
+                type="checkbox"
+                name="interests"
+                value="Culture">
+
             🏛️ Culture
+
         </label>
 
+
+
         <label class="choice">
-            <input type="checkbox">
+
+            <input
+                type="checkbox"
+                name="interests"
+                value="Beaches">
+
             🏖️ Beaches
+
         </label>
 
+
+
         <label class="choice">
-            <input type="checkbox">
+
+            <input
+                type="checkbox"
+                name="interests"
+                value="Food">
+
             🍜 Food
+
         </label>
 
+
+
         <label class="choice">
-            <input type="checkbox">
+
+            <input
+                type="checkbox"
+                name="interests"
+                value="Adventure">
+
             🥾 Adventure
+
         </label>
 
+
+
         <label class="choice">
-            <input type="checkbox">
+
+            <input
+                type="checkbox"
+                name="interests"
+                value="Shopping">
+
             🛍️ Shopping
+
         </label>
 
+
+
         <label class="choice">
-            <input type="checkbox">
+
+            <input
+                type="checkbox"
+                name="interests"
+                value="Nature">
+
             🌿 Nature
+
         </label>
 
     </div>
 
 
+
+    <!-- NOTES -->
+
     <label>
         Notes
     </label>
 
+
     <textarea
+        name="notes"
         rows="4"
         placeholder="Anything important about your trip?"
     ></textarea>
 
 
+
+    <!-- BUTTONS -->
+
     <div class="form-actions">
+
 
         <a href="{% url 'dashboard' %}"
            class="btn btn-light">
@@ -365,6 +461,7 @@
             Cancel
 
         </a>
+
 
 
         <button
@@ -380,7 +477,10 @@
 
 </form>
 
+
 </main>
 
+
 </body>
+
 </html>
