@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Trip | WanderWise</title>
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="index.html"
+       class="logo">
+
+        ✈ WanderWise
+
+    </a>
+
+
+    <nav>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="destinations.html">
+            Destinations
+        </a>
+
+        <a href="create_trip.html"
+           class="active">
+
+            Plan Trip
+
+        </a>
+
+        <a href="itinerary.html">
+            My Trips
+        </a>
+
+    </nav>
+
+
+    <a href="profile.html"
+       class="avatar">
+
+        PP
+
+    </a>
+
+</header>
+
+
+<main class="page narrow">
+
+
+<div class="page-heading left">
+
+    <span class="eyebrow">
+        NEW ADVENTURE
+    </span>
+
+    <h1>
+        Create your trip
+    </h1>
+
+    <p>
+        Tell us a little about your journey and
+        we'll help you organize it.
+    </p>
+
+</div>
+
+
+<div class="stepper">
+
+    <div class="step active">
+
+        <b>1</b>
+
+        <span>
+            Trip details
+        </span>
+
+    </div>
+
+
+    <div class="line"></div>
+
+
+    <div class="step">
+
+        <b>2</b>
+
+        <span>
+            Activities
+        </span>
+
+    </div>
+
+
+    <div class="line"></div>
+
+
+    <div class="step">
+
+        <b>3</b>
+
+        <span>
+            Itinerary
+        </span>
+
+    </div>
+
+</div>
+
+
+<form class="planner-card"
+      action="itinerary.html">
+
+
+    <h2>
+        Trip details
+    </h2>
+
+
+    <div class="two-inputs">
+
+        <div>
+
+            <label>
+                Destination
+            </label>
+
+            <select required>
+
+                <option value="">
+                    Select destination
+                </option>
+
+                <option>
+                    Paris, France
+                </option>
+
+                <option>
+                    Dubai, UAE
+                </option>
+
+                <option>
+                    Bali, Indonesia
+                </option>
+
+                <option>
+                    Tokyo, Japan
+                </option>
+
+                <option>
+                    London, UK
+                </option>
+
+                <option>
+                    Goa, India
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Trip name
+            </label>
+
+            <input
+                type="text"
+                placeholder="My dream vacation"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="two-inputs">
+
+        <div>
+
+            <label>
+                Start date
+            </label>
+
+            <input
+                type="date"
+                required
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                End date
+            </label>
+
+            <input
+                type="date"
+                required
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="two-inputs">
+
+        <div>
+
+            <label>
+                Number of travelers
+            </label>
+
+            <input
+                type="number"
+                min="1"
+                value="2"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Budget (₹)
+            </label>
+
+            <input
+                type="number"
+                placeholder="50000"
+            >
+
+        </div>
+
+    </div>
+
+
+    <label>
+        Travel style
+    </label>
+
+
+    <div class="choice-grid">
+
+        <label class="choice">
+
+            <input
+                type="radio"
+                name="style"
+                checked
+            >
+
+            🧳 Budget
+
+        </label>
+
+
+        <label class="choice">
+
+            <input
+                type="radio"
+                name="style"
+            >
+
+            ⭐ Moderate
+
+        </label>
+
+
+        <label class="choice">
+
+            <input
+                type="radio"
+                name="style"
+            >
+
+            💎 Luxury
+
+        </label>
+
+    </div>
+
+
+    <label>
+        Interests
+    </label>
+
+
+    <div class="choice-grid">
+
+        <label class="choice">
+            <input type="checkbox">
+            🏛️ Culture
+        </label>
+
+        <label class="choice">
+            <input type="checkbox">
+            🏖️ Beaches
+        </label>
+
+        <label class="choice">
+            <input type="checkbox">
+            🍜 Food
+        </label>
+
+        <label class="choice">
+            <input type="checkbox">
+            🥾 Adventure
+        </label>
+
+        <label class="choice">
+            <input type="checkbox">
+            🛍️ Shopping
+        </label>
+
+        <label class="choice">
+            <input type="checkbox">
+            🌿 Nature
+        </label>
+
+    </div>
+
+
+    <label>
+        Notes
+    </label>
+
+    <textarea
+        rows="4"
+        placeholder="Anything important about your trip?"
+    ></textarea>
+
+
+    <div class="form-actions">
+
+        <a href="dashboard.html"
+           class="btn btn-light">
+
+            Cancel
+
+        </a>
+
+
+        <button
+            type="submit"
+            class="btn btn-primary">
+
+            Continue →
+
+        </button>
+
+    </div>
+
+
+</form>
+
+</main>
+
+</body>
+</html>
