@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +23,7 @@
 
 <header class="navbar">
 
+
     <a href="{% url 'index' %}"
        class="logo">
 
@@ -32,24 +34,31 @@
 
     <nav>
 
+
         <a href="{% url 'dashboard' %}">
             Dashboard
         </a>
+
 
         <a href="{% url 'destinations' %}">
             Destinations
         </a>
 
+
         <a href="{% url 'create_trip' %}">
             Plan Trip
         </a>
 
-        <a href="{% url 'itinerary' %}"
+
+        <!-- My Trips now goes to dashboard because itinerary requires trip.id -->
+
+        <a href="{% url 'dashboard' %}"
            class="active">
 
             My Trips
 
         </a>
+
 
     </nav>
 
@@ -61,275 +70,794 @@
 
     </a>
 
+
 </header>
+
+
 
 
 <main class="page">
 
 
+
+<!-- ========================= -->
+<!-- PAGE HEADING -->
+<!-- ========================= -->
+
+
 <div class="page-heading left">
 
+
     <span class="eyebrow">
+
         TRIP FINANCES
+
     </span>
 
+
     <h1>
-        Bali Escape — Budget
+
+        {{ trip.trip_name }} — Budget
+
     </h1>
 
+
     <p>
+
         Keep track of your estimated and planned expenses.
+
     </p>
 
+
 </div>
+
+
+
+
+
+<!-- ========================= -->
+<!-- BUDGET TOP -->
+<!-- ========================= -->
 
 
 <div class="budget-top">
 
 
-<div class="budget-total">
 
-    <span>
-        Total budget
-    </span>
-
-    <strong>
-        ₹48,000
-    </strong>
+    <div class="budget-total">
 
 
-    <div class="progress">
+        <span>
 
-        <span style="width:76%"></span>
+            Total budget
+
+        </span>
+
+
+        <strong>
+
+            ₹{{ trip.budget }}
+
+        </strong>
+
+
+
+        <div class="progress">
+
+
+            {% if trip.budget > 0 %}
+
+                <span
+                    style="width:{% widthratio total_expenses trip.budget 100 %}%"
+                ></span>
+
+            {% else %}
+
+                <span
+                    style="width:0%"
+                ></span>
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <small>
+
+            ₹{{ total_expenses }} estimated •
+            ₹{{ remaining }} remaining
+
+        </small>
+
 
     </div>
 
 
-    <small>
-        ₹36,500 estimated • ₹11,500 remaining
-    </small>
+
+
+    <div class="budget-score">
+
+
+        {% if remaining >= 0 %}
+
+
+            <span>
+
+                💚
+
+            </span>
+
+
+            <b>
+
+                On track
+
+            </b>
+
+
+            <small>
+
+                Your trip is within budget
+
+            </small>
+
+
+        {% else %}
+
+
+            <span>
+
+                ⚠️
+
+            </span>
+
+
+            <b>
+
+                Over budget
+
+            </b>
+
+
+            <small>
+
+                Your trip is over budget
+
+            </small>
+
+
+        {% endif %}
+
+
+    </div>
+
 
 </div>
 
 
-<div class="budget-score">
 
-    <span>
-        💚
-    </span>
 
-    <b>
-        On track
-    </b>
 
-    <small>
-        Your trip is within budget
-    </small>
+<!-- ========================= -->
+<!-- ADD EXPENSE -->
+<!-- ========================= -->
 
-</div>
 
-</div>
+<section class="panel"
+         style="margin-bottom: 24px;">
+
+
+
+    <div class="panel-title">
+
+
+        <h2>
+
+            Add expense
+
+        </h2>
+
+
+        <span>
+
+            Track your trip spending
+
+        </span>
+
+
+    </div>
+
+
+
+
+
+    <form
+        method="POST"
+        action="{% url 'budget' trip.id %}"
+    >
+
+
+        {% csrf_token %}
+
+
+
+        <!-- CATEGORY -->
+
+
+        <div class="two-inputs">
+
+
+            <div>
+
+
+                <label>
+
+                    Category
+
+                </label>
+
+
+                <select
+                    name="category"
+                    required
+                >
+
+
+                    <option value="">
+
+                        Select category
+
+                    </option>
+
+
+
+                    <option value="Accommodation">
+
+                        Accommodation
+
+                    </option>
+
+
+
+                    <option value="Transportation">
+
+                        Transportation
+
+                    </option>
+
+
+
+                    <option value="Food">
+
+                        Food
+
+                    </option>
+
+
+
+                    <option value="Activities">
+
+                        Activities
+
+                    </option>
+
+
+
+                    <option value="Shopping">
+
+                        Shopping
+
+                    </option>
+
+
+
+                    <option value="Other">
+
+                        Other
+
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+
+            <!-- DESCRIPTION -->
+
+
+            <div>
+
+
+                <label>
+
+                    Description
+
+                </label>
+
+
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="Hotel booking"
+                    required
+                >
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- AMOUNT + DATE -->
+
+
+        <div class="two-inputs">
+
+
+            <div>
+
+
+                <label>
+
+                    Amount (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    name="amount"
+                    placeholder="Amount"
+                    min="0"
+                    required
+                >
+
+
+            </div>
+
+
+
+
+
+            <div>
+
+
+                <label>
+
+                    Date
+
+                </label>
+
+
+                <input
+                    type="date"
+                    name="date"
+                >
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- SUBMIT -->
+
+
+        <div class="form-actions">
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+
+                ＋ Add expense
+
+            </button>
+
+
+        </div>
+
+
+    </form>
+
+
+</section>
+
+
+
+
+
+<!-- ========================= -->
+<!-- BUDGET GRID -->
+<!-- ========================= -->
 
 
 <div class="budget-grid">
 
 
+
+
+
+<!-- ========================= -->
+<!-- EXPENSE BREAKDOWN -->
+<!-- ========================= -->
+
+
 <section class="panel">
 
 
-<div class="panel-title">
 
-    <h2>
-        Expense breakdown
-    </h2>
-
-    <button class="btn btn-primary">
-        ＋ Add expense
-    </button>
-
-</div>
+    <div class="panel-title">
 
 
-<div class="expense">
+        <h2>
 
-    <span class="expense-icon">
-        🏨
-    </span>
+            Expense breakdown
 
-    <div>
+        </h2>
 
-        <b>
-            Accommodation
-        </b>
 
-        <small>
-            6 nights
-        </small>
+
+        <button
+            class="btn btn-primary"
+            type="button"
+            onclick="document.querySelector('.panel form').scrollIntoView({behavior: 'smooth'});"
+        >
+
+            ＋ Add expense
+
+        </button>
+
 
     </div>
 
-    <strong>
-        ₹16,000
-    </strong>
-
-</div>
 
 
-<div class="expense">
-
-    <span class="expense-icon">
-        ✈️
-    </span>
-
-    <div>
-
-        <b>
-            Transportation
-        </b>
-
-        <small>
-            Flights + local travel
-        </small>
-
-    </div>
-
-    <strong>
-        ₹12,000
-    </strong>
-
-</div>
 
 
-<div class="expense">
-
-    <span class="expense-icon">
-        🍜
-    </span>
-
-    <div>
-
-        <b>
-            Food
-        </b>
-
-        <small>
-            Meals & drinks
-        </small>
-
-    </div>
-
-    <strong>
-        ₹4,500
-    </strong>
-
-</div>
+    <!-- ========================= -->
+    <!-- DATABASE EXPENSES -->
+    <!-- ========================= -->
 
 
-<div class="expense">
-
-    <span class="expense-icon">
-        🎟️
-    </span>
-
-    <div>
-
-        <b>
-            Activities
-        </b>
-
-        <small>
-            Tours & tickets
-        </small>
-
-    </div>
-
-    <strong>
-        ₹3,500
-    </strong>
-
-</div>
+    {% for expense in expenses %}
 
 
-<div class="expense">
 
-    <span class="expense-icon">
-        🛍️
-    </span>
+    <div class="expense">
 
-    <div>
 
-        <b>
-            Shopping
-        </b>
+        <span class="expense-icon">
 
-        <small>
-            Souvenirs & extras
-        </small>
+
+            {% if expense.category == "Accommodation" %}
+
+                🏨
+
+
+            {% elif expense.category == "Transportation" %}
+
+                ✈️
+
+
+            {% elif expense.category == "Food" %}
+
+                🍜
+
+
+            {% elif expense.category == "Activities" %}
+
+                🎟️
+
+
+            {% elif expense.category == "Shopping" %}
+
+                🛍️
+
+
+            {% else %}
+
+                📌
+
+            {% endif %}
+
+
+        </span>
+
+
+
+        <div>
+
+
+            <b>
+
+                {{ expense.category }}
+
+            </b>
+
+
+            <small>
+
+                {{ expense.description }}
+
+            </small>
+
+
+            {% if expense.date %}
+
+
+            <small>
+
+                {{ expense.date }}
+
+            </small>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <strong>
+
+            ₹{{ expense.amount }}
+
+        </strong>
+
 
     </div>
 
-    <strong>
-        ₹500
-    </strong>
 
-</div>
+
+    {% empty %}
+
+
+
+    <!-- ========================= -->
+    <!-- NO EXPENSES -->
+    <!-- ========================= -->
+
+
+    <div class="expense">
+
+
+        <span class="expense-icon">
+
+            💰
+
+        </span>
+
+
+        <div>
+
+
+            <b>
+
+                No expenses yet
+
+            </b>
+
+
+            <small>
+
+                Add your first expense using the
+                Add expense button above.
+
+            </small>
+
+
+        </div>
+
+
+        <strong>
+
+            ₹0
+
+        </strong>
+
+
+    </div>
+
+
+
+    {% endfor %}
+
+
+
+    <!-- ========================= -->
+    <!-- ORIGINAL EXPENSE STYLE -->
+    <!-- ========================= -->
+
+
+    <!--
+    The following structure is kept from
+    your original design as the database
+    now provides the actual values.
+    -->
+
+
 
 </section>
 
 
+
+
+
+<!-- ========================= -->
+<!-- BUDGET OVERVIEW -->
+<!-- ========================= -->
+
+
 <aside class="panel">
 
+
     <h2>
+
         Budget overview
+
     </h2>
+
+
+
 
 
     <div class="donut">
 
+
         <div>
 
-            <b>
-                76%
-            </b>
+
+            {% if trip.budget > 0 %}
+
+
+                <b>
+
+                    {% widthratio total_expenses trip.budget 100 %}%
+
+                </b>
+
+
+            {% else %}
+
+
+                <b>
+
+                    0%
+
+                </b>
+
+
+            {% endif %}
+
+
 
             <small>
+
                 planned
+
             </small>
+
 
         </div>
 
+
     </div>
+
+
+
+
+
+    <!-- ========================= -->
+    <!-- BUDGET LEGEND -->
+    <!-- ========================= -->
 
 
     <div class="legend">
 
+
         <span>
+
             Accommodation
-            <b>44%</b>
+
+            <b>
+
+                ₹{{ accommodation_total|default:"0" }}
+
+            </b>
+
         </span>
 
+
+
         <span>
+
             Transport
-            <b>33%</b>
+
+            <b>
+
+                ₹{{ transportation_total|default:"0" }}
+
+            </b>
+
         </span>
 
+
+
         <span>
+
             Food
-            <b>12%</b>
+
+            <b>
+
+                ₹{{ food_total|default:"0" }}
+
+            </b>
+
         </span>
 
+
+
         <span>
+
             Activities
-            <b>10%</b>
+
+            <b>
+
+                ₹{{ activities_total|default:"0" }}
+
+            </b>
+
         </span>
+
+
+
+        <span>
+
+            Shopping
+
+            <b>
+
+                ₹{{ shopping_total|default:"0" }}
+
+            </b>
+
+        </span>
+
 
     </div>
 
+
 </aside>
+
+
 
 </div>
 
+
+
 </main>
 
+
+
 </body>
+
+
 </html>
