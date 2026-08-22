@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,6 +37,7 @@
             Dashboard
         </a>
 
+
         <a href="{% url 'destinations' %}"
            class="active">
 
@@ -43,11 +45,13 @@
 
         </a>
 
+
         <a href="{% url 'create_trip' %}">
             Plan Trip
         </a>
 
-        <a href="{% url 'itinerary' %}">
+
+        <a href="{% url 'dashboard' %}">
             My Trips
         </a>
 
@@ -64,216 +68,200 @@
 </header>
 
 
+
 <main class="page">
 
 
-<div class="page-heading">
+    <!-- PAGE HEADING -->
 
-    <span class="eyebrow">
-        DISCOVER
-    </span>
+    <div class="page-heading">
 
-    <h1>
-        Where will you go next?
-    </h1>
+        <span class="eyebrow">
+            DISCOVER
+        </span>
 
-    <p>
-        Explore destinations and find the perfect
-        place for your next adventure.
-    </p>
-
-</div>
-
-
-<div class="searchbar">
-
-    <input
-        type="search"
-        placeholder="🔎 Search cities, countries or activities..."
-    >
-
-
-    <select>
-
-        <option>
-            All regions
-        </option>
-
-        <option>
-            Asia
-        </option>
-
-        <option>
-            Europe
-        </option>
-
-        <option>
-            Middle East
-        </option>
-
-    </select>
-
-
-    <select>
-
-        <option>
-            Any budget
-        </option>
-
-        <option>
-            Budget
-        </option>
-
-        <option>
-            Moderate
-        </option>
-
-        <option>
-            Luxury
-        </option>
-
-    </select>
-
-</div>
-
-
-<div class="destination-grid full-grid">
-
-
-<a href="{% url 'create_trip' %}"
-   class="destination-card paris">
-
-    <div class="destination-overlay">
-
-        <span>🇫🇷 France</span>
-
-        <h3>Paris</h3>
+        <h1>
+            Where will you go next?
+        </h1>
 
         <p>
-            Romance • Art • Food
+            Explore destinations and find the perfect
+            place for your next adventure.
         </p>
-
-        <strong>
-            From ₹55,000
-        </strong>
 
     </div>
 
-</a>
 
 
-<a href="{% url 'create_trip' %}"
-   class="destination-card dubai">
+    <!-- SEARCH / FILTER -->
 
-    <div class="destination-overlay">
+    <div class="searchbar">
 
-        <span>🇦🇪 UAE</span>
-
-        <h3>Dubai</h3>
-
-        <p>
-            Luxury • Shopping • Adventure
-        </p>
-
-        <strong>
-            From ₹45,000
-        </strong>
-
-    </div>
-
-</a>
+        <input
+            type="search"
+            placeholder="🔎 Search cities, countries or activities..."
+        >
 
 
-<a href="{% url 'create_trip' %}"
-   class="destination-card bali">
+        <select>
 
-    <div class="destination-overlay">
+            <option value="">
+                All regions
+            </option>
 
-        <span>🇮🇩 Indonesia</span>
+            <option value="Asia">
+                Asia
+            </option>
 
-        <h3>Bali</h3>
+            <option value="Europe">
+                Europe
+            </option>
 
-        <p>
-            Beaches • Nature • Wellness
-        </p>
+            <option value="Middle East">
+                Middle East
+            </option>
 
-        <strong>
-            From ₹35,000
-        </strong>
+            <option value="North America">
+                North America
+            </option>
 
-    </div>
+            <option value="South America">
+                South America
+            </option>
 
-</a>
+            <option value="Africa">
+                Africa
+            </option>
 
+            <option value="Oceania">
+                Oceania
+            </option>
 
-<a href="{% url 'create_trip' %}"
-   class="destination-card tokyo">
-
-    <div class="destination-overlay">
-
-        <span>🇯🇵 Japan</span>
-
-        <h3>Tokyo</h3>
-
-        <p>
-            Culture • Technology • Food
-        </p>
-
-        <strong>
-            From ₹75,000
-        </strong>
-
-    </div>
-
-</a>
+        </select>
 
 
-<a href="{% url 'create_trip' %}"
-   class="destination-card london">
+        <select>
 
-    <div class="destination-overlay">
+            <option value="">
+                Any budget
+            </option>
 
-        <span>🇬🇧 UK</span>
+            <option value="budget">
+                Budget
+            </option>
 
-        <h3>London</h3>
+            <option value="moderate">
+                Moderate
+            </option>
 
-        <p>
-            History • Shopping • Culture
-        </p>
+            <option value="luxury">
+                Luxury
+            </option>
 
-        <strong>
-            From ₹70,000
-        </strong>
+        </select>
 
     </div>
 
-</a>
 
 
-<a href="{% url 'create_trip' %}"
-   class="destination-card goa">
+    <!-- DESTINATION CARDS -->
 
-    <div class="destination-overlay">
+    <div class="destination-grid full-grid">
 
-        <span>🇮🇳 India</span>
 
-        <h3>Goa</h3>
+        {% for destination in destinations %}
 
-        <p>
-            Beaches • Nightlife • Relaxation
-        </p>
 
-        <strong>
-            From ₹18,000
-        </strong>
+        <a href="{% url 'create_trip' %}?destination={{ destination.id }}"
+           class="destination-card">
+
+
+            {% if destination.image %}
+
+                <div
+                    class="destination-image"
+                    style="background-image: url('{{ destination.image }}');"
+                >
+                </div>
+
+            {% endif %}
+
+
+            <div class="destination-overlay">
+
+
+                <span>
+
+                    {{ destination.country }}
+
+                </span>
+
+
+                <h3>
+
+                    {{ destination.name }}
+
+                </h3>
+
+
+                <p>
+
+                    {{ destination.description }}
+
+                </p>
+
+
+                <div class="destination-rating">
+
+                    ⭐ {{ destination.rating }}
+
+                </div>
+
+
+                <strong>
+
+                    From ₹{{ destination.average_budget }}
+
+                </strong>
+
+
+            </div>
+
+
+        </a>
+
+
+        {% empty %}
+
+
+        <!-- SHOW THIS IF DATABASE IS EMPTY -->
+
+        <div class="empty-state">
+
+            <h3>
+                No destinations available
+            </h3>
+
+            <p>
+                Add destinations from the Django admin panel.
+            </p>
+
+            <a href="/admin/">
+                Go to Admin
+            </a>
+
+        </div>
+
+
+        {% endfor %}
+
 
     </div>
 
-</a>
-
-</div>
 
 </main>
 
+
 </body>
+
 </html>
