@@ -18,7 +18,7 @@
 
 <div class="auth-wrap">
 
-    <a href="index.html" class="logo auth-logo">
+    <a href="{% url 'index' %}" class="logo auth-logo">
         ✈ WanderWise
     </a>
 
@@ -38,7 +38,9 @@
         </p>
 
 
-        <form action="dashboard.html">
+        <form action="{% url 'dashboard' %}" method="POST">
+
+            {% csrf_token %}
 
             <label>
                 Email address
@@ -46,6 +48,7 @@
 
             <input
                 type="email"
+                name="email"
                 placeholder="you@example.com"
                 required
             >
@@ -57,6 +60,7 @@
 
             <input
                 type="password"
+                name="password"
                 placeholder="Enter your password"
                 required
             >
@@ -66,7 +70,8 @@
 
                 <label class="check">
 
-                    <input type="checkbox">
+                    <input type="checkbox"
+                           name="remember">
 
                     Remember me
 
@@ -99,7 +104,7 @@
 
             Don't have an account?
 
-            <a href="signup.html">
+            <a href="{% url 'signup' %}">
                 Create one
             </a>
 

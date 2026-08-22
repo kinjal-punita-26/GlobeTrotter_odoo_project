@@ -12,20 +12,20 @@
 
 <header class="navbar">
 
-    <a href="index.html" class="logo">
+    <a href="{% url 'index' %}" class="logo">
         ✈ WanderWise
     </a>
 
     <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="destinations.html">Destinations</a>
-        <a href="create-trip.html">Plan Trip</a>
-        <a href="itinerary.html">My Trips</a>
+        <a href="{% url 'index' %}" class="active">Home</a>
+        <a href="{% url 'destinations' %}">Destinations</a>
+        <a href="{% url 'create_trip' %}">Plan Trip</a>
+        <a href="{% url 'itinerary' %}">My Trips</a>
     </nav>
 
     <div class="nav-actions">
-        <a href="login.html" class="btn btn-outline">Login</a>
-        <a href="signup.html" class="btn btn-primary">Get Started</a>
+        <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
+        <a href="{% url 'signup' %}" class="btn btn-primary">Get Started</a>
     </div>
 
 </header>
@@ -54,12 +54,12 @@
 
         <div class="hero-buttons">
 
-            <a href="create-trip.html"
+            <a href="{% url 'create_trip' %}"
                class="btn btn-primary btn-lg">
                 Start Planning →
             </a>
 
-            <a href="destinations.html"
+            <a href="{% url 'destinations' %}"
                class="btn btn-light btn-lg">
                 Explore Destinations
             </a>
@@ -211,7 +211,7 @@
 
         </div>
 
-        <a href="destinations.html" class="text-link">
+        <a href="{% url 'destinations' %}" class="text-link">
             View all →
         </a>
 
@@ -220,7 +220,7 @@
 
     <div class="destination-grid">
 
-        <a href="create-trip.html"
+        <a href="{% url 'create_trip' %}"
            class="destination-card paris">
 
             <div class="destination-overlay">
@@ -236,7 +236,7 @@
         </a>
 
 
-        <a href="create_trip.html"
+        <a href="{% url 'create_trip' %}"
            class="destination-card dubai">
 
             <div class="destination-overlay">
@@ -252,7 +252,7 @@
         </a>
 
 
-        <a href="create_trip.html"
+        <a href="{% url 'create_trip' %}"
            class="destination-card bali">
 
             <div class="destination-overlay">

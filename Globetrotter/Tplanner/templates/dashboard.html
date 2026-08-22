@@ -22,7 +22,7 @@
 
 <header class="navbar">
 
-    <a href="index.html"
+    <a href="{% url 'index' %}"
        class="logo">
 
         ✈ WanderWise
@@ -32,29 +32,29 @@
 
     <nav>
 
-        <a href="dashboard.html"
+        <a href="{% url 'dashboard' %}"
            class="active">
 
             Dashboard
 
         </a>
 
-        <a href="destinations.html">
+        <a href="{% url 'destinations' %}">
             Destinations
         </a>
 
-        <a href="create_trip.html">
+        <a href="{% url 'create_trip' %}">
             Plan Trip
         </a>
 
-        <a href="itinerary.html">
+        <a href="{% url 'itinerary' %}">
             My Trips
         </a>
 
     </nav>
 
 
-    <a href="profile.html"
+    <a href="{% url 'profile' %}"
        class="avatar">
 
         PP
@@ -86,7 +86,7 @@
     </div>
 
 
-    <a href="create_trip.html"
+    <a href="{% url 'create_trip' %}"
        class="btn btn-primary">
 
         ＋ Create New Trip
@@ -180,7 +180,7 @@
             Upcoming trip
         </h2>
 
-        <a href="itinerary.html">
+        <a href="{% url 'itinerary' %}">
             View details →
         </a>
 
@@ -239,7 +239,7 @@
     </div>
 
 
-    <a href="destinations.html"
+    <a href="{% url 'destinations' %}"
        class="quick">
 
         <span>🔎</span>
@@ -261,7 +261,7 @@
     </a>
 
 
-    <a href="create_trip.html"
+    <a href="{% url 'create_trip' %}"
        class="quick">
 
         <span>🗓️</span>
@@ -283,7 +283,7 @@
     </a>
 
 
-    <a href="profile.html"
+    <a href="{% url 'profile' %}"
        class="quick">
 
         <span>⚙️</span>
@@ -317,7 +317,7 @@
             Recent trips
         </h2>
 
-        <a href="itinerary.html">
+        <a href="{% url 'itinerary' %}">
             See all
         </a>
 

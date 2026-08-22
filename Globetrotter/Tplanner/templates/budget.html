@@ -22,7 +22,7 @@
 
 <header class="navbar">
 
-    <a href="index.html"
+    <a href="{% url 'index' %}"
        class="logo">
 
         ✈ WanderWise
@@ -32,19 +32,19 @@
 
     <nav>
 
-        <a href="dashboard.html">
+        <a href="{% url 'dashboard' %}">
             Dashboard
         </a>
 
-        <a href="destinations.html">
+        <a href="{% url 'destinations' %}">
             Destinations
         </a>
 
-        <a href="create_trip.html">
+        <a href="{% url 'create_trip' %}">
             Plan Trip
         </a>
 
-        <a href="itinerary.html"
+        <a href="{% url 'itinerary' %}"
            class="active">
 
             My Trips
@@ -54,7 +54,7 @@
     </nav>
 
 
-    <a href="profile.html"
+    <a href="{% url 'profile' %}"
        class="avatar">
 
         PP
