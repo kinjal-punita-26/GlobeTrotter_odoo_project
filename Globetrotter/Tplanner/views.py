@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-<<<<<<< HEAD
 from .models import Destination
-=======
+from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.models import User
->>>>>>> e53ab2a1c4926f8b48cf8ce365f02a60f5e16119
+from .models import (
+    Destination,
+    Trip,
+    ItineraryItem,
+    Expense
+)
 
 from django.contrib.auth import (
     authenticate,
@@ -91,16 +96,118 @@ def index(request):
     return render(request, 'index.html')
 
 
+@login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+
+    trips = Trip.objects.filter(
+        user=request.user
+    ).select_related(
+        'destination'
+    ).order_by(
+        '-created_at'
+    )
+
+
+    return render(
+        request,
+        'dashboard.html',
+        {
+            'trips': trips
+        }
+    )
 
 
 def destinations(request):
     return render(request, 'destinations.html')
 
 
+@login_required
 def create_trip(request):
-    return render(request, 'create_trip.html')
+
+    destinations = Destination.objects.all()
+
+
+    if request.method == 'POST':
+
+        destination_id = request.POST.get(
+            'destination'
+        )
+
+        trip_name = request.POST.get(
+            'trip_name'
+        )
+
+        start_date = request.POST.get(
+            'start_date'
+        )
+
+        end_date = request.POST.get(
+            'end_date'
+        )
+
+        travelers = request.POST.get(
+            'travelers'
+        )
+
+        budget = request.POST.get(
+            'budget'
+        )
+
+        travel_style = request.POST.get(
+            'travel_style'
+        )
+
+        notes = request.POST.get(
+            'notes'
+        )
+
+        interests = request.POST.getlist(
+            'interests'
+        )
+
+
+        destination = Destination.objects.get(
+            id=destination_id
+        )
+
+
+        trip = Trip.objects.create(
+
+            user=request.user,
+
+            destination=destination,
+
+            trip_name=trip_name,
+
+            start_date=start_date,
+
+            end_date=end_date,
+
+            travelers=travelers,
+
+            budget=budget,
+
+            travel_style=travel_style,
+
+            interests=interests,
+
+            notes=notes
+        )
+
+
+        return redirect(
+            'itinerary',
+            trip_id=trip.id
+        )
+
+
+    return render(
+        request,
+        'create_trip.html',
+        {
+            'destinations': destinations
+        }
+    )
 
 
 def itinerary(request):
@@ -122,7 +229,7 @@ def signup(request):
 def profile(request):
     return render(request, 'profile.html')
 
-<<<<<<< HEAD
+
 def destinations(request):
 
     all_destinations = Destination.objects.all()
@@ -134,7 +241,7 @@ def destinations(request):
             'destinations': all_destinations
         }
     )
-=======
+
 def user_login(request):
 
     if request.method == 'POST':
@@ -177,4 +284,4 @@ def user_login(request):
         request,
         'login.html'
     )
->>>>>>> e53ab2a1c4926f8b48cf8ce365f02a60f5e16119
+

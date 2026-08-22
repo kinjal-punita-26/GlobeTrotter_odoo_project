@@ -18,6 +18,18 @@ urlpatterns = [
     views.user_login,
     name='login'
 ),
+path(
+        'itinerary/<int:trip_id>/',
+        views.itinerary,
+        name='itinerary'
+    ),
+
+
+    path(
+        'budget/<int:trip_id>/',
+        views.budget,
+        name='budget'
+    ),
     
 ]
 

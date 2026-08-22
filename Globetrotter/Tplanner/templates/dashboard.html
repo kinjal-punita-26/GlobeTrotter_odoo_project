@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,16 +40,25 @@
 
         </a>
 
+
         <a href="{% url 'destinations' %}">
+
             Destinations
+
         </a>
+
 
         <a href="{% url 'create_trip' %}">
+
             Plan Trip
+
         </a>
 
+
         <a href="{% url 'itinerary' %}">
+
             My Trips
+
         </a>
 
     </nav>
@@ -57,7 +67,7 @@
     <a href="{% url 'profile' %}"
        class="avatar">
 
-        PP
+        {{ user.username|first|upper }}
 
     </a>
 
@@ -66,21 +76,40 @@
 
 <main class="dashboard">
 
-
 <section class="welcome">
 
     <div>
 
         <span class="eyebrow">
+
             TRAVEL DASHBOARD
+
         </span>
 
-        <h1>
-            Hello, Traveler! 👋
-        </h1>
+
+        {% if user.is_authenticated %}
+
+            <h1>
+
+                Welcome, {{ user.username }}! 👋
+
+            </h1>
+
+        {% else %}
+
+            <h1>
+
+                Hello, Traveler! 👋
+
+            </h1>
+
+        {% endif %}
+
 
         <p>
+
             Ready to plan your next adventure?
+
         </p>
 
     </div>
@@ -105,15 +134,18 @@
 
         <div>
 
-            <b>3</b>
+            <b>{{ trips|length }}</b>
 
             <small>
+
                 Total Trips
+
             </small>
 
         </div>
 
     </div>
+
 
 
     <div class="metric">
@@ -125,12 +157,15 @@
             <b>7</b>
 
             <small>
+
                 Places Visited
+
             </small>
 
         </div>
 
     </div>
+
 
 
     <div class="metric">
@@ -142,12 +177,15 @@
             <b>₹1.28L</b>
 
             <small>
+
                 Total Spent
+
             </small>
 
         </div>
 
     </div>
+
 
 
     <div class="metric">
@@ -159,12 +197,15 @@
             <b>12</b>
 
             <small>
+
                 Saved Places
+
             </small>
 
         </div>
 
     </div>
+
 
 </section>
 
@@ -177,66 +218,160 @@
     <div class="panel-title">
 
         <h2>
-            Upcoming trip
+
+            Upcoming Trip
+
         </h2>
 
+
         <a href="{% url 'itinerary' %}">
+
             View details →
+
         </a>
 
     </div>
 
 
-    <div class="trip-large">
+    {% if trips %}
 
-        <div class="trip-image bali"></div>
+        {% for trip in trips|slice:":1" %}
 
-
-        <div class="trip-info">
-
-            <span class="pill">
-                UPCOMING
-            </span>
-
-            <h3>
-                Bali, Indonesia
-            </h3>
-
-            <p>
-                📅 12 Oct – 18 Oct 2026
-            </p>
-
-            <p>
-                👥 2 travelers • 7 days
-            </p>
+        <div class="trip-large">
 
 
-            <div class="progress">
+            <div class="trip-image bali"
 
-                <span style="width:72%"></span>
+                 {% if trip.destination.image %}
+
+                 style="background-image:
+                 url('{{ trip.destination.image }}');
+                 background-size: cover;
+                 background-position: center;"
+
+                 {% endif %}>
 
             </div>
 
-            <small>
-                72% planned
-            </small>
+
+
+            <div class="trip-info">
+
+
+                <span class="pill">
+
+                    UPCOMING
+
+                </span>
+
+
+                <h3>
+
+                    {{ trip.trip_name }}
+
+                </h3>
+
+
+                <p>
+
+                    📍 {{ trip.destination.name }},
+                    {{ trip.destination.country }}
+
+                </p>
+
+
+                <p>
+
+                    📅 {{ trip.start_date }}
+                    → {{ trip.end_date }}
+
+                </p>
+
+
+                <p>
+
+                    👥 {{ trip.travelers }} travelers
+
+                </p>
+
+
+                <p>
+
+                    💰 ₹{{ trip.budget }}
+
+                </p>
+
+
+                <div class="progress">
+
+                    <span style="width:72%"></span>
+
+                </div>
+
+
+                <small>
+
+                    72% planned
+
+                </small>
+
+            </div>
+
 
         </div>
 
-    </div>
+        {% endfor %}
+
+    {% else %}
+
+
+        <div class="empty-trip">
+
+            <h3>
+
+                No upcoming trips ✈️
+
+            </h3>
+
+
+            <p>
+
+                Start planning your next adventure.
+
+            </p>
+
+
+            <a href="{% url 'create_trip' %}"
+               class="btn btn-primary">
+
+                Create Your First Trip
+
+            </a>
+
+        </div>
+
+
+    {% endif %}
 
 </div>
 
 
+
+<!-- ================= QUICK ACTIONS ================= -->
+
 <div class="panel">
+
 
     <div class="panel-title">
 
         <h2>
-            Quick actions
+
+            Quick Actions
+
         </h2>
 
     </div>
+
 
 
     <a href="{% url 'destinations' %}"
@@ -247,11 +382,15 @@
         <div>
 
             <b>
+
                 Explore destinations
+
             </b>
 
             <small>
+
                 Find your next place
+
             </small>
 
         </div>
@@ -259,6 +398,7 @@
         →
 
     </a>
+
 
 
     <a href="{% url 'create_trip' %}"
@@ -269,11 +409,15 @@
         <div>
 
             <b>
+
                 Create itinerary
+
             </b>
 
             <small>
+
                 Plan day by day
+
             </small>
 
         </div>
@@ -281,6 +425,7 @@
         →
 
     </a>
+
 
 
     <a href="{% url 'profile' %}"
@@ -291,11 +436,15 @@
         <div>
 
             <b>
+
                 Profile settings
+
             </b>
 
             <small>
+
                 Update your details
+
             </small>
 
         </div>
@@ -304,103 +453,358 @@
 
     </a>
 
+
 </div>
+
 
 </section>
 
 
 <section class="panel">
 
+
     <div class="panel-title">
 
         <h2>
-            Recent trips
+
+            My Trips
+
         </h2>
 
-        <a href="{% url 'itinerary' %}">
-            See all
+
+        <a href="{% url 'create_trip' %}">
+
+            ＋ Create Trip
+
         </a>
 
     </div>
 
 
+
+    {% for trip in trips %}
+
+
+    <div class="trip-card">
+
+        {% if trip.destination.image %}
+
+            <img
+                src="{{ trip.destination.image }}"
+                alt="{{ trip.destination.name }}"
+                class="trip-card-image">
+
+        {% else %}
+
+            <div class="trip-card-image-placeholder">
+
+                🌍
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="trip-card-content">
+
+
+            <span class="pill">
+
+                TRIP
+
+            </span>
+
+
+            <h3>
+
+                {{ trip.trip_name }}
+
+            </h3>
+
+
+            <p>
+
+                📍
+
+                {{ trip.destination.name }},
+
+                {{ trip.destination.country }}
+
+            </p>
+
+
+            <p>
+
+                📅
+
+                {{ trip.start_date }}
+
+                →
+
+                {{ trip.end_date }}
+
+            </p>
+
+
+            <p>
+
+                👥
+
+                {{ trip.travelers }} travelers
+
+            </p>
+
+
+            <p>
+
+                💰
+
+                Budget:
+
+                ₹{{ trip.budget }}
+
+            </p>
+
+
+
+            <!-- Actions -->
+
+            <div class="trip-actions">
+
+
+                <a
+                    href="{% url 'itinerary' trip.id %}"
+                    class="btn btn-primary">
+
+                    View Itinerary
+
+                </a>
+
+
+                <a
+                    href="{% url 'budget' trip.id %}"
+                    class="btn btn-secondary">
+
+                    View Budget
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    {% empty %}
+
+
+    <div class="empty-trip">
+
+
+        <div class="empty-icon">
+
+            ✈️
+
+        </div>
+
+
+        <h3>
+
+            You haven't created any trips yet.
+
+        </h3>
+
+
+        <p>
+
+            Start planning your dream journey today!
+
+        </p>
+
+
+        <a
+            href="{% url 'create_trip' %}"
+            class="btn btn-primary">
+
+            Create Your First Trip
+
+        </a>
+
+
+    </div>
+
+
+    {% endfor %}
+
+
+</section>
+
+<section class="panel">
+
+
+    <div class="panel-title">
+
+        <h2>
+
+            Recent Trips
+
+        </h2>
+
+
+        <a href="{% url 'itinerary' %}">
+
+            See all
+
+        </a>
+
+    </div>
+
+
+
     <div class="table-wrap">
 
+
         <table>
+
 
             <thead>
 
                 <tr>
 
-                    <th>Destination</th>
-                    <th>Dates</th>
-                    <th>Travelers</th>
-                    <th>Budget</th>
-                    <th>Status</th>
+                    <th>
+
+                        Destination
+
+                    </th>
+
+
+                    <th>
+
+                        Dates
+
+                    </th>
+
+
+                    <th>
+
+                        Travelers
+
+                    </th>
+
+
+                    <th>
+
+                        Budget
+
+                    </th>
+
+
+                    <th>
+
+                        Status
+
+                    </th>
 
                 </tr>
 
             </thead>
 
 
+
             <tbody>
 
+
+                {% for trip in trips %}
+
+
                 <tr>
 
-                    <td>🇫🇷 Paris</td>
-                    <td>15 Jun – 20 Jun</td>
-                    <td>2</td>
-                    <td>₹65,000</td>
 
                     <td>
-                        <span class="status done">
-                            Completed
-                        </span>
+
+                        📍
+
+                        {{ trip.destination.name }}
+
                     </td>
 
-                </tr>
-
-
-                <tr>
-
-                    <td>🇦🇪 Dubai</td>
-                    <td>02 Aug – 06 Aug</td>
-                    <td>3</td>
-                    <td>₹52,000</td>
 
                     <td>
-                        <span class="status done">
-                            Completed
-                        </span>
+
+                        {{ trip.start_date }}
+
+                        –
+
+                        {{ trip.end_date }}
+
                     </td>
 
-                </tr>
-
-
-                <tr>
-
-                    <td>🇮🇩 Bali</td>
-                    <td>12 Oct – 18 Oct</td>
-                    <td>2</td>
-                    <td>₹48,000</td>
 
                     <td>
+
+                        {{ trip.travelers }}
+
+                    </td>
+
+
+                    <td>
+
+                        ₹{{ trip.budget }}
+
+                    </td>
+
+
+                    <td>
+
                         <span class="status upcoming">
+
                             Upcoming
+
                         </span>
+
+                    </td>
+
+
+                </tr>
+
+
+                {% empty %}
+
+
+                <tr>
+
+                    <td colspan="5">
+
+                        No trips found.
+
                     </td>
 
                 </tr>
+
+
+                {% endfor %}
+
 
             </tbody>
 
+
         </table>
+
 
     </div>
 
+
 </section>
+
+
 
 </main>
 
+
 </body>
+
 </html>
