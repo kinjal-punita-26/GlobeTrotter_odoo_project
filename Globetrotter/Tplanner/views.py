@@ -4,4 +4,6 @@ from django.http import HttpResponse
 def Tplanner(request):
     return HttpResponse("Hello, Django!")
 
-# Create your views here.
+def index(request):
+    return render(request, 'index.html')
+
