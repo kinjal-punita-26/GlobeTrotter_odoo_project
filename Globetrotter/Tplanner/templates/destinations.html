@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard | WanderWise</title>
+    <title>Destinations | WanderWise</title>
 
     <link rel="stylesheet"
           href="css/style.css">
@@ -31,15 +31,15 @@
 
     <nav>
 
-        <a href="dashboard.html"
-           class="active">
-
+        <a href="dashboard.html">
             Dashboard
-
         </a>
 
-        <a href="destinations.html">
+        <a href="destinations.html"
+           class="active">
+
             Destinations
+
         </a>
 
         <a href="create_trip.html">
@@ -63,341 +63,214 @@
 </header>
 
 
-<main class="dashboard">
+<main class="page">
 
 
-<section class="welcome">
+<div class="page-heading">
 
-    <div>
+    <span class="eyebrow">
+        DISCOVER
+    </span>
 
-        <span class="eyebrow">
-            TRAVEL DASHBOARD
-        </span>
+    <h1>
+        Where will you go next?
+    </h1>
 
-        <h1>
-            Hello, Traveler! 👋
-        </h1>
+    <p>
+        Explore destinations and find the perfect
+        place for your next adventure.
+    </p>
+
+</div>
+
+
+<div class="searchbar">
+
+    <input
+        type="search"
+        placeholder="🔎 Search cities, countries or activities..."
+    >
+
+
+    <select>
+
+        <option>
+            All regions
+        </option>
+
+        <option>
+            Asia
+        </option>
+
+        <option>
+            Europe
+        </option>
+
+        <option>
+            Middle East
+        </option>
+
+    </select>
+
+
+    <select>
+
+        <option>
+            Any budget
+        </option>
+
+        <option>
+            Budget
+        </option>
+
+        <option>
+            Moderate
+        </option>
+
+        <option>
+            Luxury
+        </option>
+
+    </select>
+
+</div>
+
+
+<div class="destination-grid full-grid">
+
+
+<a href="create_trip.html"
+   class="destination-card paris">
+
+    <div class="destination-overlay">
+
+        <span>🇫🇷 France</span>
+
+        <h3>Paris</h3>
 
         <p>
-            Ready to plan your next adventure?
+            Romance • Art • Food
         </p>
 
-    </div>
-
-
-    <a href="create_trip.html"
-       class="btn btn-primary">
-
-        ＋ Create New Trip
-
-    </a>
-
-</section>
-
-
-<section class="metric-grid">
-
-
-    <div class="metric">
-
-        <span>🌍</span>
-
-        <div>
-
-            <b>3</b>
-
-            <small>
-                Total Trips
-            </small>
-
-        </div>
+        <strong>
+            From ₹55,000
+        </strong>
 
     </div>
 
-
-    <div class="metric">
-
-        <span>📍</span>
-
-        <div>
-
-            <b>7</b>
-
-            <small>
-                Places Visited
-            </small>
-
-        </div>
-
-    </div>
+</a>
 
 
-    <div class="metric">
+<a href="create-trip.html"
+   class="destination-card dubai">
 
-        <span>💰</span>
+    <div class="destination-overlay">
 
-        <div>
+        <span>🇦🇪 UAE</span>
 
-            <b>₹1.28L</b>
+        <h3>Dubai</h3>
 
-            <small>
-                Total Spent
-            </small>
+        <p>
+            Luxury • Shopping • Adventure
+        </p>
 
-        </div>
+        <strong>
+            From ₹45,000
+        </strong>
 
     </div>
 
-
-    <div class="metric">
-
-        <span>❤️</span>
-
-        <div>
-
-            <b>12</b>
-
-            <small>
-                Saved Places
-            </small>
-
-        </div>
-
-    </div>
-
-</section>
+</a>
 
 
-<section class="dashboard-grid">
+<a href="create-trip.html"
+   class="destination-card bali">
 
+    <div class="destination-overlay">
 
-<div class="panel">
+        <span>🇮🇩 Indonesia</span>
 
-    <div class="panel-title">
+        <h3>Bali</h3>
 
-        <h2>
-            Upcoming trip
-        </h2>
+        <p>
+            Beaches • Nature • Wellness
+        </p>
 
-        <a href="itinerary.html">
-            View details →
-        </a>
+        <strong>
+            From ₹35,000
+        </strong>
 
     </div>
 
-
-    <div class="trip-large">
-
-        <div class="trip-image bali"></div>
+</a>
 
 
-        <div class="trip-info">
+<a href="create-trip.html"
+   class="destination-card tokyo">
 
-            <span class="pill">
-                UPCOMING
-            </span>
+    <div class="destination-overlay">
 
-            <h3>
-                Bali, Indonesia
-            </h3>
+        <span>🇯🇵 Japan</span>
 
-            <p>
-                📅 12 Oct – 18 Oct 2026
-            </p>
+        <h3>Tokyo</h3>
 
-            <p>
-                👥 2 travelers • 7 days
-            </p>
+        <p>
+            Culture • Technology • Food
+        </p>
 
-
-            <div class="progress">
-
-                <span style="width:72%"></span>
-
-            </div>
-
-            <small>
-                72% planned
-            </small>
-
-        </div>
+        <strong>
+            From ₹75,000
+        </strong>
 
     </div>
+
+</a>
+
+
+<a href="create-trip.html"
+   class="destination-card london">
+
+    <div class="destination-overlay">
+
+        <span>🇬🇧 UK</span>
+
+        <h3>London</h3>
+
+        <p>
+            History • Shopping • Culture
+        </p>
+
+        <strong>
+            From ₹70,000
+        </strong>
+
+    </div>
+
+</a>
+
+
+<a href="create-trip.html"
+   class="destination-card goa">
+
+    <div class="destination-overlay">
+
+        <span>🇮🇳 India</span>
+
+        <h3>Goa</h3>
+
+        <p>
+            Beaches • Nightlife • Relaxation
+        </p>
+
+        <strong>
+            From ₹18,000
+        </strong>
+
+    </div>
+
+</a>
 
 </div>
-
-
-<div class="panel">
-
-    <div class="panel-title">
-
-        <h2>
-            Quick actions
-        </h2>
-
-    </div>
-
-
-    <a href="destinations.html"
-       class="quick">
-
-        <span>🔎</span>
-
-        <div>
-
-            <b>
-                Explore destinations
-            </b>
-
-            <small>
-                Find your next place
-            </small>
-
-        </div>
-
-        →
-
-    </a>
-
-
-    <a href="create_trip.html"
-       class="quick">
-
-        <span>🗓️</span>
-
-        <div>
-
-            <b>
-                Create itinerary
-            </b>
-
-            <small>
-                Plan day by day
-            </small>
-
-        </div>
-
-        →
-
-    </a>
-
-
-    <a href="profile.html"
-       class="quick">
-
-        <span>⚙️</span>
-
-        <div>
-
-            <b>
-                Profile settings
-            </b>
-
-            <small>
-                Update your details
-            </small>
-
-        </div>
-
-        →
-
-    </a>
-
-</div>
-
-</section>
-
-
-<section class="panel">
-
-    <div class="panel-title">
-
-        <h2>
-            Recent trips
-        </h2>
-
-        <a href="itinerary.html">
-            See all
-        </a>
-
-    </div>
-
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Destination</th>
-                    <th>Dates</th>
-                    <th>Travelers</th>
-                    <th>Budget</th>
-                    <th>Status</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                <tr>
-
-                    <td>🇫🇷 Paris</td>
-                    <td>15 Jun – 20 Jun</td>
-                    <td>2</td>
-                    <td>₹65,000</td>
-
-                    <td>
-                        <span class="status done">
-                            Completed
-                        </span>
-                    </td>
-
-                </tr>
-
-
-                <tr>
-
-                    <td>🇦🇪 Dubai</td>
-                    <td>02 Aug – 06 Aug</td>
-                    <td>3</td>
-                    <td>₹52,000</td>
-
-                    <td>
-                        <span class="status done">
-                            Completed
-                        </span>
-                    </td>
-
-                </tr>
-
-
-                <tr>
-
-                    <td>🇮🇩 Bali</td>
-                    <td>12 Oct – 18 Oct</td>
-                    <td>2</td>
-                    <td>₹48,000</td>
-
-                    <td>
-                        <span class="status upcoming">
-                            Upcoming
-                        </span>
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
 
 </main>
 
