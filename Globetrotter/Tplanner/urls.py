@@ -9,11 +9,6 @@ urlpatterns = [
     path('destinations/', views.destinations, name='destinations'),
     path('create-trip/', views.create_trip, name='create_trip'),
     path('itinerary/', views.itinerary, name='itinerary'),
-    path(
-    'budget/<int:trip_id>/',
-    views.budget,
-    name='budget'
-),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('profile/', views.profile, name='profile'),
@@ -22,18 +17,17 @@ urlpatterns = [
     views.user_login,
     name='login'
 ),
-path(
-        'itinerary/<int:trip_id>/',
-        views.itinerary,
-        name='itinerary'
-    ),
+# path(
+#         'itinerary/<int:trip_id>/',
+#         views.itinerary,
+#         name='itinerary'
+#     ),
 
 
     path(
-        'budget/<int:trip_id>/',
+        'budget/',
         views.budget,
         name='budget'
     ),
     
 ]
-

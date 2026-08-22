@@ -147,7 +147,7 @@
 
 
 
-        <a href="{% url 'budget' trip.id %}"
+        <a href="{% url 'budget' %}"
            class="btn btn-primary">
 
             View Budget
@@ -182,7 +182,7 @@
 
     <form
         method="POST"
-        action="{% url 'itinerary' trip.id %}"
+        action="{% url 'itinerary'  %}"
     >
 
 
@@ -818,7 +818,7 @@
 
 
     <a
-        href="{% url 'budget' trip.id %}"
+        href="{% url 'budget'%}"
         class="btn btn-primary full"
     >
 

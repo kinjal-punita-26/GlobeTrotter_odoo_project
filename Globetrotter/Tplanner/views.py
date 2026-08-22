@@ -473,11 +473,11 @@ def create_trip(request):
 # =========================================
 
 @login_required
-def itinerary(request, trip_id):
+def itinerary(request):
 
     trip = get_object_or_404(
         Trip,
-        id=trip_id,
+        # id=trip_id,
         user=request.user
     )
 
@@ -530,7 +530,7 @@ def itinerary(request, trip_id):
 
         return redirect(
             'itinerary',
-            trip_id=trip.id
+            # trip_id=trip.id
         )
 
 
@@ -644,4 +644,3 @@ def profile(request):
         request,
         'profile.html'
     )
-
